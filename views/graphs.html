@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graphs | TravelTrack</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-title">
+            <h1>TravelTrack</h1>
+        </div>
+        <div class="top-nav">
+            <div class="nav-buttons">
+                <a href="/index">Dashboard</a>
+                <a href="/todolist">Travel Plans</a>
+                <a href="/create-plan">Create Plan</a>
+            </div>
+        </div>
+    </header>
+    
+    <main class="content">
+        <div class="graphs">
+            <h2 style="text-align:center">Expense Comparison</h2>
+            <br>
+            <br>
+            <br>
+            <div class="graphs-container">
+                <div class="chart-wrapper">
+                    <canvas id="expenseChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="/js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", async function() {
+            
+            const token = localStorage.getItem('token');
+            if (!token) {
+                window.location.href = '/login';
+                return;
+            }
+
+            try {
+                const response = await fetch("/api/plan/getAllPlans", {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                if (!response.ok) throw new Error("Failed to fetch data");
+
+                const plans = await response.json();
+                const tasks = plans.map(plan => plan.task || "N/A");
+                const expectedExpenses = plans.map(plan => plan.expectedExpenses || 0);
+                const actualExpenses = plans.map(plan => plan.actualExpenses || 0);
+                
+                renderChart(tasks, expectedExpenses, actualExpenses);
+            } catch (error) {
+                console.error("Error loading chart:", error);
+                document.querySelector(".graphs").innerHTML = 
+                    `<p>Error loading chart data. Please try again.</p>`;
+            }
+
+            function renderChart(tasks, expectedExpenses, actualExpenses) {
+                const ctx = document.getElementById("expenseChart").getContext("2d");
+                
+                new Chart(ctx, {
+                    type: "bar",
+                    data: {
+                        labels: tasks,
+                        datasets: [
+                            {
+                                label: "Expected Expenses",
+                                data: expectedExpenses,
+                                backgroundColor: "rgba(54, 162, 235, 0.5)",
+                                borderColor: "rgba(54, 162, 235, 1)",
+                                borderWidth: 1
+                            },
+                            {
+                                label: "Actual Expenses",
+                                data: actualExpenses,
+                                backgroundColor: "rgba(255, 99, 132, 0.5)",
+                                borderColor: "rgba(255, 99, 132, 1)",
+                                borderWidth: 1
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: "top"
+                            },
+                            title: {
+                                display: true,
+                                text: "Expected vs Actual Expenses"
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

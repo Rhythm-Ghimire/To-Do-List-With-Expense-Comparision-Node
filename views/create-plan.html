@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Plan | TravelTrack</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/create.css">
+</head>
+<body>
+    <header>
+        <h1>TravelTrack</h1>
+        <div class="top-nav">
+            <div class="nav-buttons">
+                <a href="/index">Dashboard</a>
+                <a href="/todolist">Travel Plans</a>
+                <a href="/graphs">Graphs</a>
+            </div>
+        </div>
+    </header>
+    <div class="dashboard">
+        <main class="content">
+            <h3>Create New Plan</h3>
+            <hr>
+            <form id="createPlanForm">
+                <div class="plan-container">
+                    <div class="plan-box">
+                        <table id="planDetailsTable">
+                            <thead>
+                                <tr>
+                                    <th>SN</th>
+                                    <th>Task</th>
+                                    <th>Date</th>
+                                    <th>Expected Expenses</th>
+                                    <th>Actual Expenses</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <button type="button" id="addRow">Add Row</button>
+                <button type="submit" id="savePlan">Save Plan</button>
+            </form>
+        </main>
+    </div>
+
+    <script src="/js/createPlan.js"></script>
+</body>
+</html>

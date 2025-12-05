@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Expense Tracker</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Travel Expense Tracker</h1>
+    </header>
+    <div class="dashboard">
+        <div class="sidebar" id="sidebar">
+            <div class="profile">
+                <div class="profile-header">
+                    <br><br><br>
+                    <img src="/images/image.webp" alt="User"><br>
+                    <button id="editProfile">Edit</button>
+                </div>
+                <div class="profile-info"> 
+                    <div class="info-row"><span>User Information:</span> <span id="userId"></span></div>
+                    <div class="info-row"><span>Username:</span> <input type="text" id="username" disabled></div>
+                    <div class="info-row"><span>Address:</span> <input type="text" id="address" disabled></div>
+                    <div class="info-row"><span>Phone:</span> <input type="text" id="phone" disabled></div>
+                </div>
+                <button id="saveProfile" style="display: none;" type="save">Save</button>
+            </div>
+            <ul class="menu">
+                <li><a href="todolist">To do list</a></li>
+                <li><a href="graphs">Graphs</a></li>
+                <li id="logoutBtn">Logout</li>
+            </ul>
+        </div>
+        <main class="content">
+            <button id="toggleSidebar" class="toggle-btn">☰</button>
+            <div class="cards">
+                <div class="expenses-todolist" id="expenses-todolist">
+                    <h3>Tasks and Expenses</h3>
+                    <hr>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tasks</th>
+                                <th>Date</th>
+                                <th>Expected Expenses</th>
+                                <th>Actual Expenses</th>
+                                <th>Actions</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="expenses-body"></tbody>
+                    </table>
+                </div>             
+            </div>
+            <div class="add">
+                <div class="buttons">
+                    <button class="new"><a href="create-plan">Add a New Plan</a></button>
+                    <button class="graph" id="viewGraphBtn">View Graphical Representation</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/js/script.js"></script>
+    <script src="/js/addProfile.js"></script>
+    <script src="/js/createPlan.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>
